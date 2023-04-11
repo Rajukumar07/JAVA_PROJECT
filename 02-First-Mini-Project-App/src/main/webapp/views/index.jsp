@@ -7,90 +7,135 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Report Application</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<style type="text/css">
+body {
+	
+}
+
+.container {
+	
+}
+
+td {
+	
+}
+</style>
 </head>
 <body>
-	<form:form action="search" method="post" modelAttribute="searchRequest">
+	<div class="container">
+		<h2 style="text-align: center;">Search Here</h2>
+		<form:form action="search" method="post"
+			modelAttribute="searchRequest">
 
-		<table>
 
-			<tr>
+			<table class="table table-striped">
 
-				<td>Plan Name: <form:select path="planName">
-						<form:option value="" label="-select-" />
-						<form:options items="${planItems}" />
-					</form:select>
-				</td>
-				<td>Plan Status: <form:select path="planStatus">
-						<form:option value="" label="-select-" />
-						<form:options items="${ statusItems}" />
-					</form:select>
-				</td>
-				<td>Plan Gender: <form:select path="gender">
-						<form:option value="" label="-select-" />
-						<form:option value="M" label="male" />
-						<form:option value="F" label="female" />
-					</form:select>
-				</td>
-			</tr>
-			<tr>
-				<td>Start Date: <input type="date" name="startDate">
-				</td>
-				<td>End Date: <input type="date" name="endDate">
-				</td>
-				<td><input type="submit" value="search"></td>
-			</tr>
-		</table>
-	</form:form>
-
-	<hr>
-	<h1>Reports are here</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Citizen Id</th>
-				<th>citizenName</th>
-				<th>gender</th>
-				<th>planName</th>
-				<th>planStatus</th>
-				<th>planStartDate</th>
-				<th>planEndDate</th>
-				<th>benefitAmount</th>
-				<th>denialReason</th>
-				<th>terminatedDate</th>
-				<th>terminationReason</th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<c:forEach var="r" items="${report}">
 				<tr>
-					<td>${r.citizenId }</td>
-					<td>${r.citizenName }</td>
-					<td>${r.gender }</td>
-					<td>${r.planName }</td>
-					<td>${r.planStatus }</td>
-					<td>${r.planStartDate }</td>
-					<td>${r.planEndDate }</td>
-					<td>${r.benefitAmount }</td>
-					<td>${r.denialReason }</td>
-					<td>${r.terminatedDate }</td>
-					<td>${r.terminationReason }</td>
 
+					<td>Plan Name: <form:select path="planName">
+							<form:option value="" label="-select-" />
+							<form:options items="${planItems}" />
+						</form:select>
+					</td>
+					<td>Plan Status: <form:select path="planStatus">
+							<form:option value="" label="-select-" />
+							<form:options items="${ statusItems}" />
+						</form:select>
+					</td>
+					<td>Plan Gender: <form:select path="gender">
+							<form:option value="" label="-select-" />
+							<form:option value="M" label="male" />
+							<form:option value="F" label="Fe-male" />
+						</form:select>
+					</td>
 				</tr>
-			</c:forEach>
+				<tr>
+					<td>Start Date: <input type="date" name="startDate">
+					</td>
+					<td>End Date: <input type="date" name="endDate">
+					</td>
+				</tr>
+				<tr>
+					<td><input class="btn btn-secondary" type="reset"
+						value="reset"></td>
+					<td><input class="btn btn-primary" type="submit"
+						value="search"></td>
+				</tr>
+			</table>
 
-		</tbody>
 
-	</table>
+		</form:form>
 
-	<hr>
-	<table>
-		<tr>
-			<td>Export :</td>
-			<td><input type="button" onclick="" value="Excel"></td>
-			<td><input type="button" onclick="" value="PDF"></td>
-		</tr>
+		<br> <br>
 
-	</table>
+		<h2 style="text-align: center;">Reports</h2>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Citizen Id</th>
+					<th>citizenName</th>
+					<th>gender</th>
+					<th>planName</th>
+					<th>planStatus</th>
+					<th>planStartDate</th>
+					<th>planEndDate</th>
+					<!-- <th>benefitAmount</th>
+					<th>denialReason</th>
+					<th>terminatedDate</th>
+					<th>terminationReason</th> -->
+				</tr>
+			</thead>
+			<tbody>
+
+				<c:forEach var="r" items="${report}">
+					<tr>
+						<td>${r.citizenId }</td>
+						<td>${r.citizenName }</td>
+						<td>${r.gender }</td>
+						<td>${r.planName }</td>
+						<td>${r.planStatus }</td>
+						<td>${r.planStartDate }</td>
+						<td>${r.planEndDate }</td>
+						<%-- <td>${r.benefitAmount }</td>
+						<td>${r.denialReason }</td>
+						<td>${r.terminatedDate }</td>
+						<td>${r.terminationReason }</td> --%>
+
+					</tr>
+
+				</c:forEach>
+				<tr>
+					<c:if test="${empty report}">
+						<td colspan="7" style="text-align: center;">No records found</td>
+					</c:if>
+				</tr>
+
+
+			</tbody>
+
+		</table>
+
+		<hr>
+		<table>
+			<tr>
+				<td>Export :</td>
+				<td><a href="#" class="btn btn-dark">Excel</a></td>
+				<td><a href="downloadpdf" class="btn btn-dark">PDF</a></td>
+			</tr>
+
+		</table>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+
 </body>
 </html>
